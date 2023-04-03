@@ -2,23 +2,25 @@
 function playGame(playerInput){
   clearMessages();
 
-  function getMoveName(computerMove, playerMove){
-    if (computerMove == 1){
+  function getMoveName(argMoveId){
+    if (argMoveId == 1){
       return 'kamień';
-    } else if(computerMove == 2){
+    } else if(argMoveId == 2){
       return 'papier';
-    } else if(computerMove == 3){
-      return 'nożyce';
     } else {
-      return 'nieznany ruch';
-    }
+      return 'nożyce';
+    } 
+
+    printMessage('Nie znam ruchu o id ' + argMoveId + '.');
+    return 'nieznany ruch';
+
   }
 
   let randomNumber = Math.floor(Math.random() * 3 + 1);
 
   console.log('Wylosowana liczba to: ' + randomNumber);
 
-  let computerMove = getMoveName(randomNumber);
+  let argComputerMove = getMoveName(randomNumber);
 
   /*if(randomNumber == 1){
     computerMove = 'kamień';
@@ -30,13 +32,13 @@ function playGame(playerInput){
       computerMove = 'nożyce';
     } */
 
-  printMessage('Ruch komputera to: ' + computerMove);
+  printMessage('Ruch komputera to: ' + argComputerMove);
 
   // let playerInput = prompt('Wybierz swój ruch! 1: kamień, 2: papier, 3: nożyce.');
 
   console.log('Gracz wpisał: ' + playerInput);
 
-  let playerMove = getMoveName(playerInput);
+  let argPlayerMove = getMoveName(playerInput);
 
   /* if(playerInput == '1'){
     playerMove = 'kamień';
@@ -50,10 +52,7 @@ function playGame(playerInput){
     playerMove = 'nieznany ruch';
   }
   */
-  printMessage('Twój ruch to: ' + playerMove);
-
-  let argComputerMove, argPlayerMove = displayResult(computerMove, playerMove);
-  console.log('player move: ', playerMove);
+  printMessage('Twój ruch to: ' + argPlayerMove);
 
   function displayResult(argComputerMove, argPlayerMove){
     console.log('moves:', argComputerMove, argPlayerMove);
@@ -109,12 +108,13 @@ function playGame(playerInput){
   }
 
   console.log('wynik gry: ' + displayResult);
+  displayResult(argComputerMove, argPlayerMove)
   
 // jedna zmienna jest niezdefiniowana, przez co pokazuje się pod wynikiem w nowym akapicie
 // uzywalem valid, ale nie bylem w stanie namierzyc, dlatego posluzylem sie zmienna ponizej
 // by ja ukryc
 
-  htmlelement.innerText = htmlelement.innerText.replace('undefined', '');
+ // htmlelement.innerText = htmlelement.innerText.replace('undefined', '');
 
 
   // stone result 
@@ -160,13 +160,31 @@ function playGame(playerInput){
     printMessage('Twój ruch jest nieznany! Komputer wygrywa!');
   } */
 }
-document.getElementById('play-rock').addEventListener('click', function(){
-  printMessage(playGame(1));
+// tu jest błąd
+document.getElementById('play-rock').addEventListener('click', function rockClick(){
+  playGame(1);
 });
-document.getElementById('play-paper').addEventListener('click', function(){
-  printMessage(playGame(2));
+document.getElementById('play-paper').addEventListener('click', function paperClick(){
+ playGame(2);
 });
-document.getElementById('play-scissors').addEventListener('click', function(){
-  printMessage(playGame(3));
-});
+document.getElementById('play-scissors').addEventListener('click', function scissorsClick(){
+  playGame(3);
+}); 
+/*
+function rockClick(){
+  playGame(1);
+}
+let playRock = document.getElementById('play-rock');
+playRock.addEventListener('click', rockClick);
 
+function paperClick(){
+  playGame(2);
+}
+let playPaper = document.getElementById('play-paper');
+playPaper.addEventListener('click', paperClick);
+
+function scissorsClick(){
+  playGame(3);
+}
+let playScissors = document.getElementById('play-scissors');
+playScissors.addEventListener('click', scissorsClick);*/
